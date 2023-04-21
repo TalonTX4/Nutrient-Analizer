@@ -1,3 +1,4 @@
+// imports
 const { Configuration, OpenAIApi } = require("openai");
 
 // only use .env if not in production
@@ -25,13 +26,17 @@ async function openaiPrompt(prompt) {
     });
 }
 
-// misc functions to prevent repeat prompts in code elsewhere
-function aiColorPicker (input) {
-    // TODO compare return to list of all html color names and if no matches re-prompt upto x times then go to fallback and console.log it
-    return openaiPrompt(`pick a color from the 140 color names supported by html a normal person would associate with the following object: ${input}`).then(r => {
-        return r
-    })
+// preset prompts to reduce duplication
+class prompts {
+    static async color(input) {
+        let result = await openaiPrompt(`pick a color from the 140 color names supported by html a normal person would associate with the following object: ${input}`)
+        // get just the result string and remove the linebreaks, periods, and  spaces
+        result = result.data.choices[0].text.replace(/(\r\n|\n|\r|\.| |)/gm, "");
+        return result
+    }
 }
 
-
-module.exports = aiColorPicker()
+module.exports = {
+    openaiPrompt,
+    prompts
+}
