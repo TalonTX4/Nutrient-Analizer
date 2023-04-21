@@ -6,6 +6,7 @@ const app = express()
 app.use(express.json())
 
 // defining routes
+app.use("/api/ui", require("./routes/api/ui/index"))
 
 // export app to use in index and testing
 module.exports = app
