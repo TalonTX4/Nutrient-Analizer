@@ -2,8 +2,9 @@
   "name": "nutrients",
   "version": "1.0.0",
   "description": "a web app to combine usda data with a ai driven dynamic ui",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
+    "backend": "nodemon server",
     "test": "jest --coverage"
   },
   "author": "Joseph A Paier",
